@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>RSVP Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      max-width: 500px;
+      margin: auto;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>RSVP</h1>
+  <p>We look forward to celebrating with you. So we have reserved <strong>1 seat</strong> for you. The favor of your response is requested.<br>
+  <em><u>Kindly fill the form on or before February 01, 2023.</u></em></p>
+
+  <form id="rsvp-form">
+    <label>Full Name *</label>
+    <input type="text" name="full_name" required>
+
+    <label>Are you going to attend?</label><br>
+    <input type="radio" name="attend" value="Yes" required> Of course, I will attend.<br>
+    <input type="radio" name="attend" value="No"> Sorry, I can't.<br><br>
+
+    <label>Number of Guests Attending *</label>
+    <input type="number" name="guests" required min="1" max="1" placeholder="Including Yourself">
+
+    <label>Dietary Request *</label>
+    <select name="dietary" required>
+      <option value="None">None</option>
+      <option value="Vegetarian">Vegetarian</option>
+      <option value="Vegan">Vegan</option>
+      <option value="Halal">Halal</option>
+      <option value="Kosher">Kosher</option>
+      <option value="Gluten-Free">Gluten-Free</option>
+    </select>
+
+    <button type="submit">Send</button>
+  </form>
+
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("VlbbjdwWA3B_gnn"); // Replace with your actual public key from EmailJS
+    })();
+
+    document.getElementById("rsvp-form").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      emailjs.sendForm('service_kph0p1l', 'template_1na1lnl', this)
+        .then(function(response) {
+           alert("RSVP sent successfully!");
+        }, function(error) {
+           alert("Failed to send RSVP: " + error.text);
+        });
+    });
+  </script>
+</body>
+</html>
